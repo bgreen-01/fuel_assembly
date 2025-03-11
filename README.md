@@ -1,2 +1,2 @@
-# geant4-project-template
-Template for future geant4 projects relating to PhD
+# fuel_assembly
+Geant4 AGR fuel assembly model for fuel and analogues 
