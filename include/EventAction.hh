@@ -49,17 +49,17 @@ class EventAction : public G4UserEventAction
     void BeginOfEventAction(const G4Event* event) override;
     void EndOfEventAction(const G4Event* event) override;
 
-    void AddEdep(G4double edep=0.) { fEdep += edep; }
-    void AddNEdep(G4double Nedep=0.) { fNEdep += Nedep; }
-    void AddXloc(G4double xloc=0.) { fXloc += xloc; }
-   void AddYloc(G4double yloc=0.) { fYloc += yloc; }
+    void AddEdep(G4float edep=0.) { fEdep += edep; }
+    void AddNEdep(G4float Nedep=0.) { fNEdep += Nedep; }
+    void AddXloc(G4float xloc=0.) { fXloc += xloc; }
+    void AddYloc(G4float yloc=0.) { fYloc += yloc; }
 
   private:
     RunAction* fRunAction = nullptr;
-    G4double   fEdep = 0.;
-    G4double   fNEdep = 0.;
-    G4double   fXloc = 0.;
-    G4double   fYloc = 0.;
+    G4float fEdep = 0.;
+    G4float fNEdep = 0.;
+    G4float fXloc = 0.;
+    G4float fYloc = 0.;
     
 };
 

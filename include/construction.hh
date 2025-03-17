@@ -36,6 +36,12 @@ public:
 	void SetTargetMaterial(const G4String&);
     G4Material* GetTargetMaterial() const { return fTargetMaterial; }
     
+    void SetAnnulusWater(const G4String&);
+    G4Material* GetAnnulusWater() const { return fAnnulusMaterial; }
+    
+    void SetCladWater(const G4String&);
+    G4Material* GetCladWater() const { return fCladMaterial; }
+    
     void SetTargetCompA(const G4double&);
     G4double GetTargetCompA() const { return fCompA; }
     
@@ -56,19 +62,21 @@ private:
 	DetectorMessenger* fDetectorMessenger = nullptr;
 	
 	G4Material* fTargetMaterial = nullptr;
+	G4Material* fAnnulusMaterial = nullptr;
+	G4Material* fCladMaterial = nullptr;
 	G4double fCompA = 1.;
 	G4double fCompB = 0.;
 	G4double fTargetDensity = 10.;
 	G4double fTargetThickness = 5.;
 	
-	G4LogicalVolume *fScoringVolume, *logicWorld, *logicFuel, *logicDetector, *logicClad, *logicCap;
-	G4VSolid *solidWorld, *solidFuel, *solidDetector, *solidClad, *solidCap;
-	G4VPhysicalVolume *physWorld, *physDetector, *physFuel, *physClad, *physTCap, *physBCap;
+	G4LogicalVolume *fScoringVolume, *logicWorld, *logicFuel, *logicDetector, *logicClad, *logicCap, *logicWaterC, *logicWaterA;
+	G4VSolid *solidWorld, *solidFuel, *solidDetector, *solidClad, *solidCap, *solidWaterC, *solidWaterA;
+	G4VPhysicalVolume *physWorld, *physDetector, *physFuel, *physClad, *physTCap, *physBCap, *physWaterA, *physWaterC;
 	
 	G4Isotope *U235, *U238, *U236, *Pu239, *Pu240, *Pu241, *U234, *Np237, *Pu242, *Pu238, *Am241, *Np239, *Am243, *Cm242, *Cm244, *U237;
 	G4Element *enrichedU, *spentU, *spentPu, *spentNp, *spentAm, *spentCm;
 	
-	G4Material *H2O, *air, *Al2O3, *SS2520, *spentFuel;
+	G4Material *H2O, *air, *Al2O3, *SS2520, *spentFuel, *zinc;
 	
 	void DefineMaterials();
 };

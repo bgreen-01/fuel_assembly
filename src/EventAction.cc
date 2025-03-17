@@ -53,10 +53,10 @@ EventAction::EventAction(RunAction *runAction) : fRunAction(runAction)
 
 void EventAction::BeginOfEventAction(const G4Event* anEvent)
 {
-  G4double fEdep = 0.;
-  G4double fNEdep = 0.;
-  G4double fXloc = 0.;
-  G4double fYloc = 0.;
+  /*G4float fEdep = 0.;
+  G4float fNEdep = 0.;
+  G4float fXloc = 0.;
+  G4float fYloc = 0.;*/
     
 }
 
@@ -74,15 +74,17 @@ void EventAction::EndOfEventAction(const G4Event* anEvent)
 		analysisManager->FillNtupleDColumn(0, 1, fXloc);
   		analysisManager->FillNtupleDColumn(0, 2, fYloc);
   		analysisManager->AddNtupleRow(0);
+  		
   
 	}
-	
+
 	if (fEdep > 0. * eV)
    	{
 		analysisManager->FillNtupleDColumn(1, 0, fEdep);
 		analysisManager->FillNtupleDColumn(1, 1, fXloc);
   		analysisManager->FillNtupleDColumn(1, 2, fYloc);
   		analysisManager->AddNtupleRow(1);
+  		
   		
 	}
 	  	

@@ -34,6 +34,7 @@
 #include "DetectorMessenger.hh"
 
 #include "G4UIcmdWithAString.hh"
+#include "G4UIcmdWithABool.hh"
 #include "G4UIcmdWithADoubleAndUnit.hh"
 #include "G4UIcmdWithADouble.hh"
 #include "G4UIcommand.hh"
@@ -51,12 +52,25 @@ DetectorMessenger::DetectorMessenger(MyDetectorConstruction* Det)
 {
   fMatDir = new G4UIdirectory("/targetMat/");
   fMatDir->SetGuidance("Change properties of the target material");
-
+	
+  //change target mat
   fMaterialCmd = new G4UIcmdWithAString("/targetMat/material", this);
   fMaterialCmd->SetGuidance("Select material");
   fMaterialCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
   fMaterialCmd->SetToBeBroadcasted(false);
   
+  //add or remove water
+  fMaterialAnnulus = new G4UIcmdWithAString("/targetMat/annulusWater", this);
+  fMaterialAnnulus->SetGuidance("Set annulus void material");
+  fMaterialAnnulus->AvailableForStates(G4State_PreInit, G4State_Idle);
+  fMaterialAnnulus->SetToBeBroadcasted(false);
+  
+  fMaterialClad = new G4UIcmdWithAString("/targetMat/cladWater", this);
+  fMaterialClad->SetGuidance("Set clad-fuel gap material");
+  fMaterialClad->AvailableForStates(G4State_PreInit, G4State_Idle);
+  fMaterialClad->SetToBeBroadcasted(false);
+  
+  //change target material composition
   fMaterialCompA = new G4UIcmdWithADouble("/targetMat/compA", this);
   fMaterialCompA->SetGuidance("Adjust mass percent of target material part A (0.-1.)");
   fMaterialCompA->SetParameterName("wtpercentA", false);
@@ -73,6 +87,7 @@ DetectorMessenger::DetectorMessenger(MyDetectorConstruction* Det)
   fMaterialCompB->AvailableForStates(G4State_PreInit, G4State_Idle);
   fMaterialCompB->SetToBeBroadcasted(false);
   
+  //adjust density
   fMaterialDensity = new G4UIcmdWithADoubleAndUnit("/targetMat/density", this);
   fMaterialDensity->SetGuidance("Adjust the density of target material to accomodate composition change");
   fMaterialDensity->SetParameterName("targetDensity", false);
@@ -99,6 +114,8 @@ DetectorMessenger::~DetectorMessenger()
 {
   delete fMatDir;
   delete fMaterialCmd;
+  delete fMaterialAnnulus;
+  delete fMaterialClad;
   delete fMaterialCompA;
   delete fMaterialCompB;
   delete fMaterialDensity;
@@ -115,6 +132,17 @@ void DetectorMessenger::SetNewValue(G4UIcommand* command, G4String newValue)
   {
     fDetector->SetTargetMaterial(newValue);
   }
+  
+  if(command == fMaterialAnnulus)
+  {
+    fDetector->SetAnnulusWater(newValue);
+  }
+  
+  if(command == fMaterialClad)
+  {
+    fDetector->SetCladWater(newValue);
+  }
+  
   
   if(command == fMaterialCompA)
   {

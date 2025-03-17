@@ -28,7 +28,7 @@ int main(int argc, char** argv)
 	runManager->SetUserInitialization(new PhysicsList());
     runManager->SetUserInitialization(new MyActionInitialization());
 	runManager->SetNumberOfThreads(10);
-	runManager->SetVerboseLevel(1);
+	runManager->SetVerboseLevel(0);
 	
 	runManager->Initialize();
 	

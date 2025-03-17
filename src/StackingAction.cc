@@ -50,14 +50,13 @@ StackingAction::ClassifyNewTrack(const G4Track* track)
     if (track->GetDefinition() == G4Gamma::Gamma()) return fUrgent;
     if (track->GetDefinition() == G4Neutron::Neutron()) return fUrgent;
     
-	
 	////mass is in amu (atomic number*931.49 MeV)
 	if (mass >= 230000) return fUrgent; //retain cf-252 but kill decay prods
-	//if (125000 <= mass <= 130000) return fUrgent; //retain cs-137 atoms
+	if (125000 <= mass <= 130000) return fUrgent; //retain cs-137 atoms
 	
 	////optional Alpha saving if potential for a,n production 
 	if (track->GetDefinition() == G4Alpha::Alpha()) return fUrgent;
-		
+	if (track->GetDefinition() == G4Electron::Electron()) return fUrgent;	
 	
 	//kill secondaries 
     else return fKill;

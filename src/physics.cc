@@ -68,7 +68,7 @@
 
 PhysicsList::PhysicsList()
 {
-  G4int verb = 1;
+  G4int verb = 0;
   SetVerboseLevel(verb);
   
   //add new units

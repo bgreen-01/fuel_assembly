@@ -60,10 +60,7 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
   	G4Track *track=step->GetTrack();
          
     G4String ParticleName = track->GetDynamicParticle()->GetParticleDefinition()->GetParticleName();
-    G4double energyHigh = track->GetVertexKineticEnergy()/MeV;
-
     
-
     const G4VTouchable *touchable = step->GetPreStepPoint()->GetTouchable();
     	
 	if (!fScoringVolume) 
@@ -82,10 +79,10 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
 	{
 		if (ParticleName == "gamma")
 		{
-			G4double edep = track->GetKineticEnergy()/eV;
+			G4float edep = track->GetKineticEnergy()/eV;
 			*loc = track->GetPosition();
-			G4double xlocg = loc->getX();
-			G4double ylocg = loc->getY();
+			G4float xlocg = loc->getX();
+			G4float ylocg = loc->getY();
 			
 			fEventAction->AddEdep(edep);
 			fEventAction->AddXloc(xlocg);
@@ -95,14 +92,14 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
 		
 		if (ParticleName == "neutron")
 		{
-			G4double Nedep = track->GetKineticEnergy()/eV;
+			G4float Nedep = track->GetKineticEnergy()/eV;
 			*loc = track->GetPosition();
-			G4double xlocn = loc->getX();
-			G4double ylocn = loc->getY();
+			G4float xlocn = loc->getX();
+			G4float ylocn = loc->getY();
 			
   			fEventAction->AddNEdep(Nedep);
   			fEventAction->AddXloc(xlocn);
-			fEventAction->AddYloc(ylocn);  		
+			fEventAction->AddYloc(ylocn);	
 			track->SetTrackStatus(fStopAndKill); 
 		}
 	}

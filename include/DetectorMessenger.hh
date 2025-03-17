@@ -64,6 +64,10 @@ class DetectorMessenger : public G4UImessenger
   // the surface
   G4UIcmdWithAString* fMaterialCmd = nullptr;
   
+  G4UIcmdWithAString* fMaterialAnnulus = nullptr;
+  
+  G4UIcmdWithAString* fMaterialClad = nullptr;
+  
   G4UIcmdWithADouble* fMaterialCompA = nullptr;
   
   G4UIcmdWithADouble* fMaterialCompB = nullptr;

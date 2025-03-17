@@ -100,10 +100,16 @@ void MyDetectorConstruction::DefineMaterials()
 	spentFuel->AddElement(spentAm, 0.02574*perCent);
 	spentFuel->AddElement(spentCm, 0.00113*perCent);
 	
+	///zinc
+	zinc = new G4Material("zinc", 7.14*g/cm3, 1);
+	zinc->AddElement(nist->FindOrBuildElement("Zn"), 1);
+	
 	//set world material
 	air = nist->FindOrBuildMaterial("G4_AIR");
 	
-	fTargetMaterial = H2O;
+	fTargetMaterial = spentFuel;
+	fAnnulusMaterial = air;
+	fCladMaterial = air;
 	
 
 }
@@ -133,7 +139,16 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 	solidCap = new G4Tubs("solidFuel", 0.*mm, 7.5*mm, 3.8*mm, 0.*deg, 360.*deg);
 	logicCap = new G4LogicalVolume(solidCap, Al2O3, "logicCap");
 	
-	//place fuel + clad in element arrangement
+	//central annulus water
+	solidWaterA = new G4Tubs("solidWaterA", 0*mm, 3.25*mm, 480.*mm, 0.*deg, 360.*deg);
+	logicWaterA = new G4LogicalVolume(solidWaterA, fAnnulusMaterial, "logicWaterA");
+	
+	//clad/fuel gap water
+	solidWaterC = new G4Tubs("solidWaterC", 7.25*mm, 7.5*mm, 480.*mm, 0.*deg, 360.*deg);
+	logicWaterC = new G4LogicalVolume(solidWaterC, fCladMaterial, "logicWaterC");	
+	
+	////place fuel + clad in element arrangement
+	////add water to inside &/or outside as required - include in loop for all
 	for(G4int j=0; j<6; j++)
 	{
 		G4double r = 25.0857*mm;
@@ -143,9 +158,13 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
 		physFuel = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicFuel, "physFuel", logicWorld, false, 0, true);
 		physClad = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicClad, "physClad", logicWorld, false, 0, true);
+		
 		physTCap = new G4PVPlacement(Rotation, G4ThreeVector(x, 483.8*mm, z), logicCap, "physTCap", logicWorld, false, 0, true);
 		physBCap = new G4PVPlacement(Rotation, G4ThreeVector(x, -483.8*mm, z), logicCap, "physBCap", logicWorld, false, 0, true);
-				
+		
+		physWaterA = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterA, "physWaterA", logicWorld, false, 0, true);
+		physWaterC = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterC, "physWaterC", logicWorld, false, 0, true);
+			
 	}
 		
 	for(G4int j=0; j<12; j++)
@@ -157,10 +176,12 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
 		physFuel = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicFuel, "physFuel", logicWorld, false, 0, true);
 		physClad = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicClad, "physClad", logicWorld, false, 0, true);
+		
 		physTCap = new G4PVPlacement(Rotation, G4ThreeVector(x, 483.8*mm, z), logicCap, "physTCap", logicWorld, false, 0, true);
 		physBCap = new G4PVPlacement(Rotation, G4ThreeVector(x, -483.8*mm, z), logicCap, "physBCap", logicWorld, false, 0, true);
 		
-				
+		physWaterA = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterA, "physWaterA", logicWorld, false, 0, true);
+		physWaterC = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterC, "physWaterC", logicWorld, false, 0, true);		
 	}
 	
 	for(G4int j=0; j<18; j++)
@@ -172,9 +193,12 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 
 		physFuel = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicFuel, "physFuel", logicWorld, false, 0, true);
 		physClad = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicClad, "physClad", logicWorld, false, 0, true);
+		
 		physTCap = new G4PVPlacement(Rotation, G4ThreeVector(x, 483.8*mm, z), logicCap, "physTCap", logicWorld, false, 0, true);
 		physBCap = new G4PVPlacement(Rotation, G4ThreeVector(x, -483.8*mm, z), logicCap, "physBCap", logicWorld, false, 0, true);
-				
+		
+		physWaterA = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterA, "physWaterA", logicWorld, false, 0, true);
+		physWaterC = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterC, "physWaterC", logicWorld, false, 0, true);
 	}
 		
 		
@@ -187,8 +211,9 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 	
 	fScoringVolume = logicDetector;
 		
-	G4cout << "Target material: " << fTargetMaterial->GetName() << G4endl;
-	
+	G4cout << "\n" << "Target material: " << fTargetMaterial->GetName() << G4endl;
+	G4cout << "Annulus material: " << fAnnulusMaterial->GetName() << G4endl;
+	G4cout << "Clad-fuel gap material: " << fCladMaterial->GetName() << G4endl;
 		
 	return physWorld;
 		
@@ -201,6 +226,7 @@ void MyDetectorConstruction::ConstructSDandField()
 	logicDetector->SetSensitiveDetector(sensDet);
 };
 
+///sets fuel pin material
 void MyDetectorConstruction::SetTargetMaterial(const G4String& mat)
 {
   G4Material* pmat = G4NistManager::Instance()->FindOrBuildMaterial(mat);
@@ -216,8 +242,56 @@ void MyDetectorConstruction::SetTargetMaterial(const G4String& mat)
     G4RunManager::GetRunManager()->PhysicsHasBeenModified();
     G4RunManager::GetRunManager()->GeometryHasBeenModified();
     
-    G4cout << "Target material set to " << fTargetMaterial->GetName() << G4endl;
+    G4cout << "Target material set to: " << fTargetMaterial->GetName() << G4endl;
   }
+}
+
+/// sets annular volumes defined in fuel pins to be water or air
+void MyDetectorConstruction::SetAnnulusWater(const G4String& AnnWaterPresent)
+{
+  G4cout << "AnnWaterPresent: " << AnnWaterPresent << G4endl;
+  G4Material* Amat = G4NistManager::Instance()->FindOrBuildMaterial(AnnWaterPresent);
+  G4cout << "fAnnulusMaterial: " << fAnnulusMaterial->GetName() << "\n" << G4endl;
+  
+  if(Amat && fAnnulusMaterial != Amat)
+  {
+  	
+  	fAnnulusMaterial = Amat;
+  	if(logicWaterA)
+  	{
+    	logicWaterA->SetMaterial(fAnnulusMaterial);
+    }
+        
+    G4RunManager::GetRunManager()->PhysicsHasBeenModified();
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    
+    G4cout << "Fuel pin annulus material: " << fAnnulusMaterial->GetName() << G4endl;
+  }
+
+}
+
+/// sets clad-fuel volumes defined in fuel pins to be water or air
+void MyDetectorConstruction::SetCladWater(const G4String& CladWaterPresent)
+{
+  G4cout << "CladWaterPresent: " << CladWaterPresent << G4endl;
+  G4Material* Cmat = G4NistManager::Instance()->FindOrBuildMaterial(CladWaterPresent);
+  G4cout << "fCladMaterial: " << fCladMaterial->GetName() << "\n" << G4endl;
+  if(Cmat && fCladMaterial != Cmat)
+  {
+  	
+  	fCladMaterial = Cmat;
+  	
+  	if(logicWaterC)
+  	{
+    	logicWaterC->SetMaterial(fCladMaterial);
+    }
+        
+    G4RunManager::GetRunManager()->PhysicsHasBeenModified();
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    
+    G4cout << "Fuel pin clad-fuel gap material: " << fCladMaterial->GetName() << G4endl;
+  }
+
 }
 
 void MyDetectorConstruction::SetTargetCompA(const G4double& CompA)

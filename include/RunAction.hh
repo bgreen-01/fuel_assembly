@@ -55,22 +55,22 @@ class RunAction : public G4UserRunAction
     void BeginOfRunAction(const G4Run*) override;
     void   EndOfRunAction(const G4Run*) override;
 
-    void AddEdep (G4double edep=0.);
-    void AddNEdep (G4double Nedep=0.);
-    void AddXlocN (G4double xlocN=0.);
-    void AddYlocN (G4double ylocN=0.);
-    void AddXlocG (G4double xlocG=0.);
-    void AddYlocG (G4double ylocG=0.);
+    void AddEdep (G4float edep=0.);
+    void AddNEdep (G4float Nedep=0.);
+    void AddXlocN (G4float xlocN=0.);
+    void AddYlocN (G4float ylocN=0.);
+    void AddXlocG (G4float xlocG=0.);
+    void AddYlocG (G4float ylocG=0.);
     
 	
 	
   private:
-    G4Accumulable<G4double> fEdep = 0.;
-    G4Accumulable<G4double> fNEdep = 0.;
-    G4Accumulable<G4double> fXlocN = 0.;
-    G4Accumulable<G4double> fYlocN = 0.;
-    G4Accumulable<G4double> fXlocG = 0.;
-    G4Accumulable<G4double> fYlocG = 0.;
+    G4Accumulable<G4float> fEdep = 0.;
+    G4Accumulable<G4float> fNEdep = 0.;
+    G4Accumulable<G4float> fXlocN = 0.;
+    G4Accumulable<G4float> fYlocN = 0.;
+    G4Accumulable<G4float> fXlocG = 0.;
+    G4Accumulable<G4float> fYlocG = 0.;
     
 };
 
