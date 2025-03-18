@@ -118,8 +118,10 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
 			G4float yloc = loc->getY();
 			
 			fEventAction->Addenergy(energy);
-			fEventAction->AddXloc(xloc)
-			fEventAction->AddYloc(yloc)
+			fEventAction->AddXloc(xloc);
+			fEventAction->AddYloc(yloc);
+	
+	
 		}
 	}
 	//process, volume, steplength
@@ -132,7 +134,6 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
 	fEventAction->CurrentVolume(currentVol);
 	fEventAction->StepLength(currentStepL);
 	
-	fEventAction->Addenergy(energyMod);
 	
 	delete loc;
 	
