@@ -53,13 +53,25 @@ class EventAction : public G4UserEventAction
     void AddNEdep(G4float Nedep=0.) { fNEdep += Nedep; }
     void AddXloc(G4float xloc=0.) { fXloc += xloc; }
     void AddYloc(G4float yloc=0.) { fYloc += yloc; }
+    void Addenergy(G4float energy=0.) { fEnergy += energy; }
+    void CurrentStep(G4int currentstep=0.) { fStep = currentstep; }
+    void CurrentProcess(G4String Nprocess) { fProcess = Nprocess; }
+    void CurrentVolume(G4String NVolume) { fVolume = NVolume; }
+    void StepLength(G4float Nstep=0.) { fStepLength += Nstep; }
 
   private:
     RunAction* fRunAction = nullptr;
     G4float fEdep = 0.;
     G4float fNEdep = 0.;
+    G4float fEnergy = 0.;
+    
     G4float fXloc = 0.;
     G4float fYloc = 0.;
+    
+    G4int fStep = 0;
+ 	G4float fStepLength = 0.;
+    G4String fProcess;
+    G4String fVolume;
     
 };
 

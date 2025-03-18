@@ -73,6 +73,8 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
 	//get volume of the current step
 	G4LogicalVolume* volume = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
 	
+	
+	
 	G4ThreeVector *loc = new G4ThreeVector();
 	
 	if (volume == fScoringVolume)
@@ -103,6 +105,34 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
 			track->SetTrackStatus(fStopAndKill); 
 		}
 	}
+	G4int currentStep = track->GetCurrentStepNumber();
+	
+	if (ParticleName == "gamma" && currentStep == 0){
+	
+		G4float energy = track->GetKineticEnergy()/eV;
+		G4int energyMod = round(energy/1000);
+		if (energyMod == 2223)
+		{
+			*loc = track->GetPosition();
+			G4float xloc = loc->getX();
+			G4float yloc = loc->getY();
+			
+			fEventAction->Addenergy(energy);
+			fEventAction->AddXloc(xloc)
+			fEventAction->AddYloc(yloc)
+		}
+	}
+	//process, volume, steplength
+	G4String currentVol = track->GetVolume()->GetName();
+	G4String currentProc = step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName();
+	G4double currentStepL = track->GetStepLength();
+	
+	fEventAction->CurrentStep(currentStep);
+	fEventAction->CurrentProcess(currentProc);
+	fEventAction->CurrentVolume(currentVol);
+	fEventAction->StepLength(currentStepL);
+	
+	fEventAction->Addenergy(energyMod);
 	
 	delete loc;
 	

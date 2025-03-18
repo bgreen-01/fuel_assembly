@@ -79,16 +79,42 @@ RunAction::RunAction()
     analysisManager->CreateNtupleDColumn("fXlocG");
     analysisManager->CreateNtupleDColumn("fYlocG");
     analysisManager->FinishNtuple(0);
+	
+    analysisManager->CreateNtuple("Path-length", "distance between interactions");
+    analysisManager->CreateNtupleIColumn("StepNumber");
+    analysisManager->CreateNtupleSColumn("Particle");
+    analysisManager->CreateNtupleSColumn("Process");
+    analysisManager->CreateNtupleSColumn("Volume");
+    analysisManager->CreateNtupleDColumn("StepLength");
+    analysisManager->FinishNtuple(0);
     
- 
-  // Register accumulable to the accumulable manager
-  G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
-  accumulableManager->RegisterAccumulable(fEdep);
-  accumulableManager->RegisterAccumulable(fNEdep);
-  accumulableManager->RegisterAccumulable(fXlocN);
-  accumulableManager->RegisterAccumulable(fYlocN);
-  accumulableManager->RegisterAccumulable(fXlocG);
-  accumulableManager->RegisterAccumulable(fYlocG);
+    analysisManager->CreateNtuple("2.223-production", "physics process per particle");
+    analysisManager->CreateNtupleDColumn("fYloc");
+    analysisManager->CreateNtupleDColumn("fXloc");
+    analysisManager->FinishNtuple(0);
+    
+    //path lengths - volume/material, distance between interactions (step length)
+    
+    //particle origins
+    
+    
+    
+ 	
+	// Register accumulable to the accumulable manager
+	G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
+	accumulableManager->RegisterAccumulable(fEdep);
+	accumulableManager->RegisterAccumulable(fNEdep);
+	accumulableManager->RegisterAccumulable(fXlocN);
+	accumulableManager->RegisterAccumulable(fYlocN);
+	accumulableManager->RegisterAccumulable(fXlocG);
+	accumulableManager->RegisterAccumulable(fYlocG);
+	accumulableManager->RegisterAccumulable(fXloc);
+	accumulableManager->RegisterAccumulable(fYloc);
+	accumulableManager->RegisterAccumulable(fStep);
+	accumulableManager->RegisterAccumulable(fParticle);
+	accumulableManager->RegisterAccumulable(fProcess);
+	accumulableManager->RegisterAccumulable(fVolume);
+	accumulableManager->RegisterAccumulable(fStepLength);
 }
 
 RunAction::~RunAction()
@@ -102,17 +128,17 @@ void RunAction::BeginOfRunAction(const G4Run* run)
 {
 
 
-    // Get analysis manager
-    auto analysisManager = G4AnalysisManager::Instance();
-    
-  // inform the runManager to save random number seed
-  G4RunManager::GetRunManager()->SetRandomNumberStore(false);
+	// Get analysis manager
+	auto analysisManager = G4AnalysisManager::Instance();
 
-  // reset accumulables to their initial values
-  G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
-  accumulableManager->Reset();
-  
-  analysisManager->OpenFile();
+	// inform the runManager to save random number seed
+	G4RunManager::GetRunManager()->SetRandomNumberStore(false);
+
+	// reset accumulables to their initial values
+	G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
+	accumulableManager->Reset();
+
+	analysisManager->OpenFile();
 
 }
 
