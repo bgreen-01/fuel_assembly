@@ -66,9 +66,9 @@ class RunAction : public G4UserRunAction
     void AddYloc (G4float yloc=0.);
     
     void StepNumber (G4int stepNumber=0);
-    void Particle (G4String particle);
-    void Process (G4String process);
-    void Volume (G4String volume);
+    void Particle (std::string particle);
+    void Process (std::string process);
+    void Volume (std::string volume);
     void AddStepLength (G4float stepLength = 0.);
     
 	
@@ -85,9 +85,9 @@ class RunAction : public G4UserRunAction
     G4Accumulable<G4float> fYloc = 0.;
     
     G4Accumulable<G4int> fStep = 0.;
-    G4Accumulable<G4String> fParticle;
-    G4Accumulable<G4String> fProcess;
-    G4Accumulable<G4String> fVolume;
+    //G4Accumulable<std::string> fParticle;
+    //G4Accumulable<std::string> fProcess;
+    //G4Accumulable<std::string> fVolume;
     G4Accumulable<G4float> fStepLength = 0.;
     
 };

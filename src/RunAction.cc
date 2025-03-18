@@ -111,9 +111,9 @@ RunAction::RunAction()
 	accumulableManager->Register(fXloc);
 	accumulableManager->Register(fYloc);
 	accumulableManager->Register(fStep);
-	accumulableManager->Register(fParticle);
-	accumulableManager->Register(fProcess);
-	accumulableManager->Register(fVolume);
+	//accumulableManager->Register(fParticle);
+	//accumulableManager->Register(fProcess);
+	//accumulableManager->Register(fVolume);
 	accumulableManager->Register(fStepLength);
 }
 
