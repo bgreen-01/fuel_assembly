@@ -28,21 +28,27 @@
 #Ntuple data structure.
 
 
-/analysis/setFileName SNF_wet
+/analysis/setFileName test1
 /targetMat/material spentFuel
 /targetMat/annulusWater H2O
 /targetMat/cladWater H2O
 /run/beamOn 1000
 
-/analysis/setFileName SNF_annulus
-/targetMat/material spentFuel
-/targetMat/annulusWater H2O
+/analysis/setFileName test2
+/targetMat/material air
+/targetMat/annulusWater air
 /targetMat/cladWater air
 /run/beamOn 1000
 
-/analysis/setFileName SNF_fuel-clad
+/analysis/setFileName test3
 /targetMat/material spentFuel
 /targetMat/annulusWater air
 /targetMat/cladWater H2O
+/run/beamOn 1000
+
+/analysis/setFileName test4
+/targetMat/material zinc
+/targetMat/annulusWater air
+/targetMat/cladWater air
 /run/beamOn 1000
 

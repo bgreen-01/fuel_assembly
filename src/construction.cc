@@ -105,7 +105,8 @@ void MyDetectorConstruction::DefineMaterials()
 	zinc->AddElement(nist->FindOrBuildElement("Zn"), 1);
 	
 	//set world material
-	air = nist->FindOrBuildMaterial("G4_AIR");
+	air = new G4Material("air", 0.001293*g/cm3,1);
+	air->AddMaterial((nist->FindOrBuildMaterial("G4_AIR")), 1);
 	
 	fTargetMaterial = spentFuel;
 	fAnnulusMaterial = air;
@@ -249,48 +250,37 @@ void MyDetectorConstruction::SetTargetMaterial(const G4String& mat)
 /// sets annular volumes defined in fuel pins to be water or air
 void MyDetectorConstruction::SetAnnulusWater(const G4String& AnnWaterPresent)
 {
-  G4cout << "AnnWaterPresent: " << AnnWaterPresent << G4endl;
-  G4Material* Amat = G4NistManager::Instance()->FindOrBuildMaterial(AnnWaterPresent);
-  G4cout << "fAnnulusMaterial: " << fAnnulusMaterial->GetName() << "\n" << G4endl;
+	G4Material* Amat = G4NistManager::Instance()->FindOrBuildMaterial(AnnWaterPresent);
+	G4cout << "Current fAnnulusMaterial: " << fAnnulusMaterial->GetName() << G4endl;
+
+	fAnnulusMaterial = Amat;
+	if(logicWaterA)
+	{
+		logicWaterA->SetMaterial(fAnnulusMaterial);
+	}
+	G4RunManager::GetRunManager()->PhysicsHasBeenModified();
+	G4RunManager::GetRunManager()->GeometryHasBeenModified();
+	G4cout << "New Fuel pin annulus material: " << fAnnulusMaterial->GetName() <<  "\n" << G4endl;
   
-  if(Amat && fAnnulusMaterial != Amat)
-  {
-  	
-  	fAnnulusMaterial = Amat;
-  	if(logicWaterA)
-  	{
-    	logicWaterA->SetMaterial(fAnnulusMaterial);
-    }
-        
-    G4RunManager::GetRunManager()->PhysicsHasBeenModified();
-    G4RunManager::GetRunManager()->GeometryHasBeenModified();
-    
-    G4cout << "Fuel pin annulus material: " << fAnnulusMaterial->GetName() << G4endl;
-  }
 
 }
 
 /// sets clad-fuel volumes defined in fuel pins to be water or air
 void MyDetectorConstruction::SetCladWater(const G4String& CladWaterPresent)
 {
-  G4cout << "CladWaterPresent: " << CladWaterPresent << G4endl;
-  G4Material* Cmat = G4NistManager::Instance()->FindOrBuildMaterial(CladWaterPresent);
-  G4cout << "fCladMaterial: " << fCladMaterial->GetName() << "\n" << G4endl;
-  if(Cmat && fCladMaterial != Cmat)
-  {
-  	
-  	fCladMaterial = Cmat;
-  	
-  	if(logicWaterC)
-  	{
-    	logicWaterC->SetMaterial(fCladMaterial);
-    }
-        
-    G4RunManager::GetRunManager()->PhysicsHasBeenModified();
-    G4RunManager::GetRunManager()->GeometryHasBeenModified();
-    
-    G4cout << "Fuel pin clad-fuel gap material: " << fCladMaterial->GetName() << G4endl;
-  }
+  	G4Material* Cmat = G4NistManager::Instance()->FindOrBuildMaterial(CladWaterPresent);
+	G4cout << "Current fCladMaterial: " << fCladMaterial->GetName() << G4endl;
+	
+	fCladMaterial = Cmat;
+	if(logicWaterC)
+	{
+		logicWaterC->SetMaterial(fCladMaterial);
+	}
+		
+	G4RunManager::GetRunManager()->PhysicsHasBeenModified();
+	G4RunManager::GetRunManager()->GeometryHasBeenModified();
+	G4cout << "New Fuel pin clad-fuel gap material: " << fCladMaterial->GetName() << "\n" << G4endl;
+
 
 }
 
