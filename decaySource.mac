@@ -19,4 +19,4 @@
 #to name files with .csv but not sure if this will cause errors due to 
 #Ntuple data structure.
 /analysis/setFileName XYZ
-/run/beamOn 10000
+/run/beamOn 100
