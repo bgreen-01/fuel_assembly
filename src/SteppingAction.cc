@@ -59,7 +59,7 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
   	
   	G4Track *track=step->GetTrack();
          
-    G4String ParticleName = track->GetDynamicParticle()->GetParticleDefinition()->GetParticleName();
+    std::string ParticleName = track->GetDynamicParticle()->GetParticleDefinition()->GetParticleName();
     
     const G4VTouchable *touchable = step->GetPreStepPoint()->GetTouchable();
     	
@@ -125,8 +125,8 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
 		}
 	}
 	//process, volume, steplength
-	G4String currentVol = track->GetVolume()->GetName();
-	G4String currentProc = step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName();
+	std::string currentVol = track->GetVolume()->GetName();
+	std::string currentProc = step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName();
 	G4double currentStepL = track->GetStepLength();
 	
 	fEventAction->CurrentStep(currentStep);

@@ -55,8 +55,8 @@ class EventAction : public G4UserEventAction
     void AddYloc(G4float yloc=0.) { fYloc += yloc; }
     void Addenergy(G4float energy=0.) { fEnergy += energy; }
     void CurrentStep(G4int currentstep=0.) { fStep = currentstep; }
-    void CurrentProcess(G4String Nprocess) { fProcess = Nprocess; }
-    void CurrentVolume(G4String NVolume) { fVolume = NVolume; }
+    void CurrentProcess(std::string Nprocess) { fProcess = Nprocess; }
+    void CurrentVolume(std::string NVolume) { fVolume = NVolume; }
     void StepLength(G4float Nstep=0.) { fStepLength += Nstep; }
 
   private:
@@ -70,8 +70,8 @@ class EventAction : public G4UserEventAction
     
     G4int fStep = 0;
  	G4float fStepLength = 0.;
-    G4String fProcess;
-    G4String fVolume;
+    std::string fProcess;
+    std::string fVolume;
     
 };
 
