@@ -100,21 +100,21 @@ RunAction::RunAction()
     
     
  	
-	// Register accumulable to the accumulable manager
+	// reg accumulable to the accumulable manager
 	G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
-	accumulableManager->Register(fEdep);
-	accumulableManager->Register(fNEdep);
-	accumulableManager->Register(fXlocN);
-	accumulableManager->Register(fYlocN);
-	accumulableManager->Register(fXlocG);
-	accumulableManager->Register(fYlocG);
-	accumulableManager->Register(fXloc);
-	accumulableManager->Register(fYloc);
-	accumulableManager->Register(fStep);
-	//accumulableManager->Register(fParticle);
-	//accumulableManager->Register(fProcess);
-	//accumulableManager->Register(fVolume);
-	accumulableManager->Register(fStepLength);
+	accumulableManager->RegisterAccumulable(fEdep);
+	accumulableManager->RegisterAccumulable(fNEdep);
+	accumulableManager->RegisterAccumulable(fXlocN);
+	accumulableManager->RegisterAccumulable(fYlocN);
+	accumulableManager->RegisterAccumulable(fXlocG);
+	accumulableManager->RegisterAccumulable(fYlocG);
+	accumulableManager->RegisterAccumulable(fXloc);
+	accumulableManager->RegisterAccumulable(fYloc);
+	accumulableManager->RegisterAccumulable(fStep);
+	//accumulableManager->RegisterAccumulable(fParticle);
+	//accumulableManager->RegisterAccumulable(fProcess);
+	//accumulableManager->RegisterAccumulable(fVolume);
+	accumulableManager->RegisterAccumulable(fStepLength);
 }
 
 RunAction::~RunAction()
