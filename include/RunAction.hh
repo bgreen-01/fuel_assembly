@@ -57,20 +57,38 @@ class RunAction : public G4UserRunAction
 
     void AddEdep (G4float edep=0.);
     void AddNEdep (G4float Nedep=0.);
+    
     void AddXlocN (G4float xlocN=0.);
     void AddYlocN (G4float ylocN=0.);
     void AddXlocG (G4float xlocG=0.);
     void AddYlocG (G4float ylocG=0.);
+    void AddXloc (G4float xloc=0.);
+    void AddYloc (G4float yloc=0.);
+    
+    void StepNumber (G4int stepNumber=0);
+    void Particle (std::string particle);
+    void Process (std::string process);
+    void Volume (std::string volume);
+    void AddStepLength (G4float stepLength = 0.);
     
 	
 	
   private:
     G4Accumulable<G4float> fEdep = 0.;
     G4Accumulable<G4float> fNEdep = 0.;
+    
     G4Accumulable<G4float> fXlocN = 0.;
     G4Accumulable<G4float> fYlocN = 0.;
     G4Accumulable<G4float> fXlocG = 0.;
     G4Accumulable<G4float> fYlocG = 0.;
+    G4Accumulable<G4float> fXloc = 0.;
+    G4Accumulable<G4float> fYloc = 0.;
+    
+    G4Accumulable<G4int> fStep = 0.;
+    //G4Accumulable<std::string> fParticle;
+    //G4Accumulable<std::string> fProcess;
+    //G4Accumulable<std::string> fVolume;
+    G4Accumulable<G4float> fStepLength = 0.;
     
 };
 
