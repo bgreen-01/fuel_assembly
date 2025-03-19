@@ -67,15 +67,14 @@ void EventAction::EndOfEventAction(const G4Event* anEvent)
 	// get analysis manager
     auto analysisManager = G4AnalysisManager::Instance();
     
+    
    
    	if (fNEdep > 0. * eV)
    	{
 		analysisManager->FillNtupleDColumn(0, 0, fNEdep);
 		analysisManager->FillNtupleDColumn(0, 1, fXloc);
   		analysisManager->FillNtupleDColumn(0, 2, fYloc);
-  		analysisManager->AddNtupleRow(0);
-  		
-  
+  		analysisManager->AddNtupleRow(0);	
 	}
 
 	if (fEdep > 0. * eV)
@@ -84,14 +83,28 @@ void EventAction::EndOfEventAction(const G4Event* anEvent)
 		analysisManager->FillNtupleDColumn(1, 1, fXloc);
   		analysisManager->FillNtupleDColumn(1, 2, fYloc);
   		analysisManager->AddNtupleRow(1);
-  		
-  		
 	}
-	  	
+	
+	if (fEnergy = 2223 && fStep == 0)
+	{
+		analysisManager->FillNtupleDColumn(3, 1, fXloc);
+  		analysisManager->FillNtupleDColumn(3, 2, fYloc);
+  		analysisManager->AddNtupleRow(3);
+	}
+	
+	//fill ntuple with neutron scatter/path data
+	analysisManager->FillNtupleIColumn(2, 0, fStep);
+	analysisManager->FillNtupleSColumn(2, 1, fProcess);
+	analysisManager->FillNtupleSColumn(2, 2, fVolume);
+	analysisManager->FillNtupleDColumn(2, 2, fStepLength);
+	analysisManager->AddNtupleRow(2);
+		
     fEdep = 0.;
     fNEdep = 0.;
     fXloc = 0.;
     fYloc = 0.;
+    fEnergy = 0.;
+    fStepLength = 0.;
       
 }
 
