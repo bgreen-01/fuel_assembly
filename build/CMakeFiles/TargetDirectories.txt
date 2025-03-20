@@ -1,4 +1,0 @@
-/home/brendan/projects/github/fuel_assembly/build/CMakeFiles/f_assem.dir
-/home/brendan/projects/github/fuel_assembly/build/CMakeFiles/fuel_assembly.dir
-/home/brendan/projects/github/fuel_assembly/build/CMakeFiles/edit_cache.dir
-/home/brendan/projects/github/fuel_assembly/build/CMakeFiles/rebuild_cache.dir
