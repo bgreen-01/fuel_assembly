@@ -60,6 +60,7 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
   	G4Track *track=step->GetTrack();
          
     std::string ParticleName = track->GetDynamicParticle()->GetParticleDefinition()->GetParticleName();
+    //fEventAction->CurrentParticle(ParticleName);
     
     const G4VTouchable *touchable = step->GetPreStepPoint()->GetTouchable();
     	
@@ -71,48 +72,86 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
     }
 	
 	//get volume of the current step
-	G4LogicalVolume* volume = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
 	
-	
+	//G4String volumeName = volume->GetName();
 	
 	G4ThreeVector *loc = new G4ThreeVector();
 	
-	if (volume == fScoringVolume)
+	G4int stepNumber = track->GetCurrentStepNumber();
+	
+	G4StepPoint* preStepPoint = step->GetPreStepPoint();
+	
+	//G4float energy = track->GetKineticEnergy()/eV;
+	
+	if (ParticleName == "neutron" && stepNumber == 1)
 	{
-		if (ParticleName == "gamma")
-		{
-			G4float edep = track->GetKineticEnergy()/eV;
-			*loc = track->GetPosition();
-			G4float xlocg = loc->getX();
-			G4float ylocg = loc->getY();
+		
+		*loc = preStepPoint->GetPosition();
+		G4float xlocn = loc->getX()/mm;
+		G4float ylocn = loc->getY()/mm;
+		G4float zlocn = loc->getZ()/mm;
+						
+		fEventAction->AddXlocN(xlocn);
+		fEventAction->AddYlocN(ylocn);	
+		fEventAction->AddZlocN(zlocn);	
+		
+	}
+	
+	if (ParticleName == "gamma")
+	{
+		//G4float energy = track->GetKineticEnergy()/eV;
+		//G4int energyMod = round(energy/1000);
+		
+		*loc = preStepPoint->GetPosition();
+		G4float xlocg = loc->getX()/mm;
+		G4float ylocg = loc->getY()/mm;
+		G4float zlocg = loc->getZ()/mm;
+		
+		G4LogicalVolume* volume = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
+		G4int copyNumber = touchable->GetCopyNumber();
 			
-			fEventAction->AddEdep(edep);
-			fEventAction->AddXloc(xlocg);
-			fEventAction->AddYloc(ylocg);
-			track->SetTrackStatus(fStopAndKill); 
+		/*
+		if (stepNumber == 1)
+		{
+			fEventAction->(xlocg);
+			fEventAction->AddYlocG(ylocg);
+			fEventAction->AddZlocG(xlocg);
+			fEventAction->AddEdep(energy);
+		}*/
+		
+		if (volume == fScoringVolume)
+		{
+			
+			G4double preStepTE = step->GetPreStepPoint()->GetTotalEnergy()/keV;
+			G4double postStepTE = step->GetPostStepPoint()->GetTotalEnergy()/keV;
+
+			G4double deltaTE = preStepTE - postStepTE;
+			
+			G4double depositedEnergy = step->GetTotalEnergyDeposit()/MeV;
+			
+			//G4cout << "Detector number (angle pos): " << copyNumber << G4endl;
+			//G4cout << "Change in TE: " << deltaTE << G4endl;
+			
+			fEventAction->AddDetector(copyNumber);
+			fEventAction->AddEdep(depositedEnergy);
+			//track->SetTrackStatus(fStopAndKill); 
 		}
 		
-		if (ParticleName == "neutron")
-		{
-			G4float Nedep = track->GetKineticEnergy()/eV;
-			*loc = track->GetPosition();
-			G4float xlocn = loc->getX();
-			G4float ylocn = loc->getY();
-			
-  			fEventAction->AddNEdep(Nedep);
-  			fEventAction->AddXloc(xlocn);
-			fEventAction->AddYloc(ylocn);	
-			track->SetTrackStatus(fStopAndKill); 
-		}
 	}
-	G4int currentStep = track->GetCurrentStepNumber();
 	
-	if (ParticleName == "gamma" && currentStep == 0){
+	/*
+	
+	G4String currentProc = step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName();
+	
+	if (ParticleName == "gamma" && currentProc == "initStep"){
 	
 		G4float energy = track->GetKineticEnergy()/eV;
 		G4int energyMod = round(energy/1000);
 		if (energyMod == 2223)
 		{
+			G4bool fCheck2 = true;
+			
+			fEventAction->writeCheck2(fCheck2);
 			*loc = track->GetPosition();
 			G4float xloc = loc->getX();
 			G4float yloc = loc->getY();
@@ -125,19 +164,59 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
 		}
 	}
 	//process, volume, steplength
-	std::string currentVol = track->GetVolume()->GetName();
-	std::string currentProc = step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName();
-	G4double currentStepL = track->GetStepLength();
 	
-	fEventAction->CurrentStep(currentStep);
-	fEventAction->CurrentProcess(currentProc);
-	fEventAction->CurrentVolume(currentVol);
-	fEventAction->StepLength(currentStepL);
 	
+	if (ParticleName == "neutron")
+	{
+		G4bool check = true;		
+		
+		G4String currentProc = step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName();
+		G4double currentStepL = track->GetStepLength();
+		G4int stepNumber = track->GetCurrentStepNumber();
+		
+		G4int particleID = track->GetTrackID();
+		*loc = track->GetPosition();
+		G4float xloc = loc->getX();
+		G4float yloc = loc->getY();
+		
+		procList.push_back(currentProc);
+		pidList.push_back(particleID);
+		volList.push_back(volumeName);
+		stepLenList.push_back(currentStepL);
+		xlocList.push_back(xloc);
+		ylocList.push_back(yloc);
+		
+			
+		
+		G4cout << "\nNeutron Step Report:" << G4endl;
+		G4cout << "Particle ID: " << particleID << G4endl;	
+		G4cout << "Volume: " << volumeName << G4endl;
+		G4cout << "Process: " << currentProc << G4endl;
+		G4cout << "Step length: " << currentStepL << G4endl;
+		
+		
+		fEventAction->writeCheck(check);
+		fEventAction->GetPID(pidList);
+		fEventAction->GetProcess(currentProc);
+		fEventAction->GetVolume(volumeName);
+		fEventAction->GetStepLength(currentStepL);
+		fEventAction->GetParticleID(particleID);
+		fEventAction->AddXloc(xloc);
+		fEventAction->AddYloc(yloc);
+		
+		fEventAction->GetProcessList(procList);
+		fEventAction->GetPIDList(pidList);
+		fEventAction->GetVolumeList(volList);
+		fEventAction->GetStepLenList(stepLenList);
+		fEventAction->GetXlocList(xlocList);
+		fEventAction->GetYlocList(ylocList);
+		
+	}*/
 	
 	delete loc;
 	
-	if (volume != fScoringVolume) return;
+	//if (volume != fScoringVolume) return;
+	//else return;
 	
 }
 	

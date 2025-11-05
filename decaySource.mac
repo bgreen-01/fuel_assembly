@@ -18,5 +18,5 @@
 #NOTE: no need to add ".root" as default file type is root. You may be able 
 #to name files with .csv but not sure if this will cause errors due to 
 #Ntuple data structure.
-/analysis/setFileName XYZ
+/analysis/setFileName test
 /run/beamOn 100

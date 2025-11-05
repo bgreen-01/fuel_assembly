@@ -32,6 +32,7 @@
 
 #include "G4UserSteppingAction.hh"
 #include "globals.hh"
+#include <vector>
 #include "G4Step.hh"
 
 class G4LogicalVolume;
@@ -55,6 +56,16 @@ class SteppingAction : public G4UserSteppingAction
   private:
     EventAction* fEventAction = nullptr;
     G4LogicalVolume* fScoringVolume = nullptr;
+    
+    /*
+    std::vector<G4int> pidList = {};
+	std::vector<G4String> procList = {};
+	std::vector<G4String> volList = {};
+	std::vector<G4float> stepLenList = {};
+	std::vector<G4float> xlocList = {};
+	std::vector<G4float> ylocList = {};
+	*/
+	G4int i = 0;
 };
 
 }

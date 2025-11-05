@@ -57,6 +57,7 @@ void EventAction::BeginOfEventAction(const G4Event* anEvent)
   G4float fNEdep = 0.;
   G4float fXloc = 0.;
   G4float fYloc = 0.;*/
+  
     
 }
 
@@ -68,44 +69,105 @@ void EventAction::EndOfEventAction(const G4Event* anEvent)
     auto analysisManager = G4AnalysisManager::Instance();
     
     
-   
-   	if (fNEdep > 0. * eV)
+    //neutron generation location tuple
+   	if (fXlocN != 0 || fYlocN != 0)
    	{
-		analysisManager->FillNtupleDColumn(0, 0, fNEdep);
-		analysisManager->FillNtupleDColumn(0, 1, fXloc);
-  		analysisManager->FillNtupleDColumn(0, 2, fYloc);
+		analysisManager->FillNtupleDColumn(0, 0, fXlocN);
+		analysisManager->FillNtupleDColumn(0, 1, fYlocN);
+  		analysisManager->FillNtupleDColumn(0, 2, fZlocN);
   		analysisManager->AddNtupleRow(0);	
 	}
-
-	if (fEdep > 0. * eV)
+	
+	//gamma detection location 
+	if (fEdep > 0)
+	{
+		//G4cout << "Event number: " << anEvent->GetEventID() << G4endl;
+		analysisManager->FillNtupleIColumn(1, 0, fDetectorNumber);
+  		analysisManager->FillNtupleDColumn(1, 1, fEdep);
+  		analysisManager->AddNtupleRow(1);
+  		
+  		if (fEdep > 2220 && fEdep < 2225)
+  		{
+  			G4cout << "Gamma energy: " << fEdep << G4endl;
+  		}
+	}
+	/*
+	if ((fEdep = 2223) && (fXlocG != 0 || fYlocG != 0))
    	{
-		analysisManager->FillNtupleDColumn(1, 0, fEdep);
-		analysisManager->FillNtupleDColumn(1, 1, fXloc);
-  		analysisManager->FillNtupleDColumn(1, 2, fYloc);
+		analysisManager->FillNtupleDColumn(1, 0, fXlocG);
+		analysisManager->FillNtupleDColumn(1, 1, fYlocG);
+  		analysisManager->FillNtupleDColumn(1, 2, fZlocG);
   		analysisManager->AddNtupleRow(1);
 	}
 	
-	if (fEnergy = 2223 && fStep == 0)
+}	
+	if (fCheck == true)
 	{
-		analysisManager->FillNtupleDColumn(3, 1, fXloc);
-  		analysisManager->FillNtupleDColumn(3, 2, fYloc);
-  		analysisManager->AddNtupleRow(3);
-	}
-	
-	//fill ntuple with neutron scatter/path data
-	analysisManager->FillNtupleIColumn(2, 0, fStep);
-	analysisManager->FillNtupleSColumn(2, 1, fProcess);
-	analysisManager->FillNtupleSColumn(2, 2, fVolume);
-	analysisManager->FillNtupleDColumn(2, 2, fStepLength);
-	analysisManager->AddNtupleRow(2);
+		G4cout << "Writing neutron data" << G4endl;
 		
+		
+		G4String concfpID = "";
+		for (int strA : fPIDList) 
+		{
+			concfpID += std::to_string(strA) + ",";  			
+		}
+		
+		
+		G4String concfVol = "";
+		for (const auto& strB : fVolumeList) 
+		{
+			concfVol += strB + ",";  
+		}
+		
+		G4String concProc = "";
+		for (const auto& strC : fProcessList) 
+		{
+			concProc += strC + ",";  
+		}
+		
+		G4String concStepLen = "";
+		for (const auto& strD : fStepLengthList) 
+		{
+			concStepLen += std::to_string(strD) + ",";  
+		}
+		
+		G4String concXloc = "";
+		for (const auto& strE : fXlocList) 
+		{
+			concXloc += std::to_string(strE) + ",";  
+		}
+		
+		G4String concYloc = "";
+		for (const auto& strF : fYlocList) 
+		{
+			concYloc += std::to_string(strF) + ",";  
+		}
+		
+		analysisManager->FillNtupleSColumn(3, 0, concfpID);
+		analysisManager->FillNtupleSColumn(3, 1, concfVol);
+		analysisManager->FillNtupleSColumn(3, 2, concProc);
+		analysisManager->FillNtupleSColumn(3, 3, concStepLen);
+		analysisManager->FillNtupleSColumn(3, 4, concXloc);
+		analysisManager->FillNtupleSColumn(3, 5, concYloc);
+		analysisManager->AddNtupleRow(3);
+		//fRunAction->passVector(fProcessList);
+	}
+	*/
     fEdep = 0.;
-    fNEdep = 0.;
+    fDetectorNumber = 0;
+    /*fNEdep = 0.;
     fXloc = 0.;
     fYloc = 0.;
     fEnergy = 0.;
     fStepLength = 0.;
-      
+    fCheck = false;
+    
+    fPIDList.clear();
+    fVolumeList.clear();
+    fProcessList.clear();
+    fStepLengthList.clear();
+    fXlocList.clear();
+    fYlocList.clear();*/
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

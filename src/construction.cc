@@ -26,6 +26,10 @@ void MyDetectorConstruction::DefineMaterials()
 	G4NistManager *nist = G4NistManager::Instance();
 	
 	//Build materials
+	////germanium
+	HPGe = new G4Material("HPGe", 5.32*g/cm3, 1);
+	HPGe->AddElement(nist->FindOrBuildElement("Ge"), 1);
+	
 	
 	////water
 	H2O = new G4Material("H2O", 2.3*g/cm3, 2);
@@ -47,6 +51,15 @@ void MyDetectorConstruction::DefineMaterials()
 	SS2520->AddElement(nist->FindOrBuildElement("Si"), 2.*perCent);
 	SS2520->AddElement(nist->FindOrBuildElement("Mn"), 1.75*perCent);
 	SS2520->AddElement(nist->FindOrBuildElement("C"), 0.115*perCent);
+	
+	////slotted can steel
+	SS316L = new G4Material("SS316L", 8*g/cm3, 6);
+	SS316L->AddElement(nist->FindOrBuildElement("Fe"), 65.245*perCent);
+	SS316L->AddElement(nist->FindOrBuildElement("Cr"), 18*perCent);
+	SS316L->AddElement(nist->FindOrBuildElement("Ni"), 14*perCent);
+	SS316L->AddElement(nist->FindOrBuildElement("Mo"), 2.625*perCent);
+	SS316L->AddElement(nist->FindOrBuildElement("N"), 0.1*perCent);
+	SS316L->AddElement(nist->FindOrBuildElement("C"), 0.03*perCent);
 	
 	//spent uo2
 	U235 = new G4Isotope("U235", 92, 235);
@@ -109,8 +122,8 @@ void MyDetectorConstruction::DefineMaterials()
 	air->AddMaterial((nist->FindOrBuildMaterial("G4_AIR")), 1);
 	
 	fTargetMaterial = spentFuel;
-	fAnnulusMaterial = air;
-	fCladMaterial = air;
+	fAnnulusMaterial = H2O;
+	fCladMaterial = H2O;
 	
 
 }
@@ -123,9 +136,15 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 	Rotation->rotateZ(0*deg);
 	
 	//set world dimensions and properties
-	solidWorld =  new G4Box("solidWorld", 1.*m, 1.*m, 1.*m);
+	solidWorld =  new G4Box("solidWorld", .25*m, .75*m, .25*m);
 	logicWorld = new G4LogicalVolume(solidWorld, air, "logicWorld");
 	physWorld = new G4PVPlacement(0, G4ThreeVector(0., 0., 0.), logicWorld, "physWorld", 0, false, 0, true);
+	
+	//AGR 'slotted' can - using solid can as will be used experimentally
+	//external dimension of can is size of fuel element 
+	solidCan = new G4Tubs("solidCan", 95*mm, 97*mm, 500.*mm, 0.*deg, 360.*deg);
+	logicCan = new G4LogicalVolume(solidCan, SS316L, "logicCan");
+	physCan = new G4PVPlacement(Rotation, G4ThreeVector(0.,0.,0.), logicCan, "physCan", logicWorld, false, 0, true);
 	
 	//dimensions from end cap deformation paper, AGR description and email with David Hambley
 	//pellets - as a solid rod to reduce objects uo2 and analogue(s)
@@ -146,7 +165,8 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 	
 	//clad/fuel gap water
 	solidWaterC = new G4Tubs("solidWaterC", 7.25*mm, 7.5*mm, 480.*mm, 0.*deg, 360.*deg);
-	logicWaterC = new G4LogicalVolume(solidWaterC, fCladMaterial, "logicWaterC");	
+	logicWaterC = new G4LogicalVolume(solidWaterC, fCladMaterial, "logicWaterC");
+		
 	
 	////place fuel + clad in element arrangement
 	////add water to inside &/or outside as required - include in loop for all
@@ -181,8 +201,8 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 		physTCap = new G4PVPlacement(Rotation, G4ThreeVector(x, 483.8*mm, z), logicCap, "physTCap", logicWorld, false, 0, true);
 		physBCap = new G4PVPlacement(Rotation, G4ThreeVector(x, -483.8*mm, z), logicCap, "physBCap", logicWorld, false, 0, true);
 		
-		physWaterA = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterA, "physWaterA", logicWorld, false, 0, true);
-		physWaterC = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterC, "physWaterC", logicWorld, false, 0, true);		
+		/*physWaterA = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterA, "physWaterA", logicWorld, false, 0, true);
+		physWaterC = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterC, "physWaterC", logicWorld, false, 0, true);*/		
 	}
 	
 	for(G4int j=0; j<18; j++)
@@ -198,18 +218,37 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 		physTCap = new G4PVPlacement(Rotation, G4ThreeVector(x, 483.8*mm, z), logicCap, "physTCap", logicWorld, false, 0, true);
 		physBCap = new G4PVPlacement(Rotation, G4ThreeVector(x, -483.8*mm, z), logicCap, "physBCap", logicWorld, false, 0, true);
 		
-		physWaterA = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterA, "physWaterA", logicWorld, false, 0, true);
-		physWaterC = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterC, "physWaterC", logicWorld, false, 0, true);
+		/*physWaterA = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterA, "physWaterA", logicWorld, false, 0, true);
+		physWaterC = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterC, "physWaterC", logicWorld, false, 0, true);*/
 	}
 		
-		
+	//ring of detectors
+	solidDetector = new G4Tubs("solidDetector", 0*mm, 32.2*mm, 31.65*mm, 0.*deg, 360.*deg);
+	logicDetector = new G4LogicalVolume(solidDetector, HPGe, "logicDetector");
 	
+
+	for(G4int j=0; j<12; j++)
+	{
+		G4double r = 152*mm;
+		G4double theta = (j*(360/12))*(M_PI/180);
+		G4int detLoc = (j*(360/12));
+		G4double x = sin(theta)*r;
+		G4double z = cos(theta)*r;
+		
+		G4RotationMatrix *Rotation2 = new G4RotationMatrix();
+		Rotation2->rotateX(0*deg);
+		Rotation2->rotateY((-1)*(theta));
+		Rotation2->rotateZ(0*deg);
+		
+		physDetector = new G4PVPlacement(Rotation2, G4ThreeVector(x, 0., z), logicDetector, "physDetector", logicWorld, false, detLoc, true);
+	}
 	
 	//detector
-	solidDetector = new G4Box("solidDetector", 100*mm, 100*mm, 10*mm);
+    /*	
+	solidDetector = new G4Tubs("solidDetector", 97*mm, 98*mm, 750*mm, 0.*deg, 360.*deg);
 	logicDetector = new G4LogicalVolume(solidDetector, air, "logicDetector");
-	physDetector = new G4PVPlacement(0, G4ThreeVector(400., 0., 400.*mm), logicDetector, "physDetector", logicWorld, false, 0, true);
-	
+	physDetector = new G4PVPlacement(Rotation, G4ThreeVector(0., 0., 0.), logicDetector, "physDetector", logicWorld, false, 0, true);
+	*/
 	fScoringVolume = logicDetector;
 		
 	G4cout << "\n" << "Target material: " << fTargetMaterial->GetName() << G4endl;

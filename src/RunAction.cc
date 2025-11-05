@@ -30,6 +30,7 @@
 #include "RunAction.hh"
 #include "generator.hh"
 #include "construction.hh"
+#include "EventAction.hh"
 // #include "Run.hh"
 
 #include "G4RunManager.hh"
@@ -68,60 +69,67 @@ RunAction::RunAction()
 	analysisManager->SetDefaultFileType("root");    
     analysisManager->SetFileName("Outputfile");
     
-    analysisManager->CreateNtuple("Neutrons", "Neutrons incident on detector");
-    analysisManager->CreateNtupleDColumn("fNEdep");
+    analysisManager->CreateNtuple("Neutrons", "Neutron generation location");
     analysisManager->CreateNtupleDColumn("fXlocN");
     analysisManager->CreateNtupleDColumn("fYlocN");
+    analysisManager->CreateNtupleDColumn("fZlocN");
     analysisManager->FinishNtuple(0);
     
-    analysisManager->CreateNtuple("Gammas", "Gammas incident on detector");
+    analysisManager->CreateNtuple("Detector response", "Recorded spectrum and location");
+    analysisManager->CreateNtupleIColumn("detectorNumber");
     analysisManager->CreateNtupleDColumn("fEdep");
+    analysisManager->FinishNtuple(1);
+    
+    /*analysisManager->CreateNtuple("Gammas", "Gamma generation location");
     analysisManager->CreateNtupleDColumn("fXlocG");
     analysisManager->CreateNtupleDColumn("fYlocG");
-    analysisManager->FinishNtuple(0);
+    analysisManager->CreateNtupleDColumn("fZlocG");
+    analysisManager->FinishNtuple(2);*/
+    
+    //std::vector<G4int>
 	
-    analysisManager->CreateNtuple("Path-length", "distance between interactions");
-    analysisManager->CreateNtupleIColumn("StepNumber");
-    analysisManager->CreateNtupleSColumn("Particle");
-    analysisManager->CreateNtupleSColumn("Process");
+    /*
+    //neutron file
+    integer - particle id
+    string - volume
+    string - process
+    double - step len
+    double - x loc
+    double - y loc
+    
+    
+	analysisManager->CreateNtuple("NeutronTracking", "Track Properties");
+	analysisManager->CreateNtupleSColumn("pID");
     analysisManager->CreateNtupleSColumn("Volume");
-    analysisManager->CreateNtupleDColumn("StepLength");
+	analysisManager->CreateNtupleSColumn("Process");
+    analysisManager->CreateNtupleSColumn("StepLen");
+	analysisManager->CreateNtupleSColumn("fXloc");
+    analysisManager->CreateNtupleSColumn("fYloc");
     analysisManager->FinishNtuple(0);
-    
-    analysisManager->CreateNtuple("2.223-production", "physics process per particle");
-    analysisManager->CreateNtupleDColumn("fYloc");
-    analysisManager->CreateNtupleDColumn("fXloc");
-    analysisManager->FinishNtuple(0);
-    
-    //path lengths - volume/material, distance between interactions (step length)
-    
-    //particle origins
-    
-    
-    
- 	
-	// reg accumulable to the accumulable manager
+   */
+        
+ 	// reg accumulable to the accumulable manager
 	G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
-	accumulableManager->RegisterAccumulable(fEdep);
-	accumulableManager->RegisterAccumulable(fNEdep);
-	accumulableManager->RegisterAccumulable(fXlocN);
-	accumulableManager->RegisterAccumulable(fYlocN);
-	accumulableManager->RegisterAccumulable(fXlocG);
-	accumulableManager->RegisterAccumulable(fYlocG);
-	accumulableManager->RegisterAccumulable(fXloc);
-	accumulableManager->RegisterAccumulable(fYloc);
-	accumulableManager->RegisterAccumulable(fStep);
-	//accumulableManager->RegisterAccumulable(fParticle);
-	//accumulableManager->RegisterAccumulable(fProcess);
-	//accumulableManager->RegisterAccumulable(fVolume);
-	accumulableManager->RegisterAccumulable(fStepLength);
+	accumulableManager->Register(fEdep);
+	//accumulableManager->RegisterAccumulable(fNEdep);
+	accumulableManager->Register(fXlocN);
+	accumulableManager->Register(fYlocN);
+	accumulableManager->Register(fXlocG);
+	accumulableManager->Register(fYlocG);
+	accumulableManager->Register(fXloc);
+	accumulableManager->Register(fYloc);
+	//accumulableManager->RegisterAccumulable(fStep);
+	//accumulableManager->Register(fParticle);
+	//accumulableManager->Register(fProcess);
+	//accumulableManager->Register(fVolume);
+	//accumulableManager->Register(fStepLength);
 }
-
+/*
 RunAction::~RunAction()
 {
  
 }
-
+*/
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void RunAction::BeginOfRunAction(const G4Run* run)

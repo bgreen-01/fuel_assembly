@@ -27,51 +27,11 @@
 #to name files with .csv but not sure if this will cause errors due to 
 #Ntuple data structure.
 
-/analysis/setFileName SNF_dry
-/targetMat/material spentFuel
-/targetMat/annulusWater air
-/targetMat/cladWater air
-/run/beamOn 1000
+/analysis/setFileName 1MDetectorTest
+/run/beamOn 1000000
 
-/analysis/setFileName SNF_wet
-/targetMat/material spentFuel
-/targetMat/annulusWater H2O
-/targetMat/cladWater H2O
-/run/beamOn 1000
-
-/analysis/setFileName SNF_annulus
-/targetMat/material spentFuel
-/targetMat/annulusWater H2O
-/targetMat/cladWater air
-/run/beamOn 1000
-
-/analysis/setFileName SNF_fuel-clad
-/targetMat/material spentFuel
-/targetMat/annulusWater air
-/targetMat/cladWater H2O
-/run/beamOn 1000
-
-/analysis/setFileName zinc_dry
-/targetMat/material zinc
-/targetMat/annulusWater air
-/targetMat/cladWater air
-/run/beamOn 1000
-
-/analysis/setFileName zinc_wet
-/targetMat/material zinc
-/targetMat/annulusWater H2O
-/targetMat/cladWater H2O
-/run/beamOn 1000
-
-/analysis/setFileName zinc_annulus
-/targetMat/material zinc
-/targetMat/annulusWater H2O
-/targetMat/cladWater air
-/run/beamOn 1000
-
-/analysis/setFileName zinc_fuel-clad
-/targetMat/material zinc
-/targetMat/annulusWater air
-/targetMat/cladWater H2O
-/run/beamOn 1000
-
+#/analysis/setFileName SNF_dry
+#/targetMat/material spentFuel
+#/targetMat/annulusWater air
+#/targetMat/cladWater air
+#/run/beamOn 1000

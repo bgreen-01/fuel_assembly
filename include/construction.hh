@@ -69,14 +69,14 @@ private:
 	G4double fTargetDensity = 10.;
 	G4double fTargetThickness = 5.;
 	
-	G4LogicalVolume *fScoringVolume, *logicWorld, *logicFuel, *logicDetector, *logicClad, *logicCap, *logicWaterC, *logicWaterA;
-	G4VSolid *solidWorld, *solidFuel, *solidDetector, *solidClad, *solidCap, *solidWaterC, *solidWaterA;
-	G4VPhysicalVolume *physWorld, *physDetector, *physFuel, *physClad, *physTCap, *physBCap, *physWaterA, *physWaterC;
+	G4LogicalVolume *fScoringVolume, *logicWorld, *logicFuel, *logicDetector, *logicClad, *logicCap, *logicWaterC, *logicWaterA, *logicCan;
+	G4VSolid *solidWorld, *solidFuel, *solidDetector, *solidClad, *solidCap, *solidWaterC, *solidWaterA, *solidCan;
+	G4VPhysicalVolume *physWorld, *physDetector, *physFuel, *physClad, *physTCap, *physBCap, *physWaterA, *physWaterC, *physCan;
 	
 	G4Isotope *U235, *U238, *U236, *Pu239, *Pu240, *Pu241, *U234, *Np237, *Pu242, *Pu238, *Am241, *Np239, *Am243, *Cm242, *Cm244, *U237;
 	G4Element *enrichedU, *spentU, *spentPu, *spentNp, *spentAm, *spentCm;
 	
-	G4Material *H2O, *air, *Al2O3, *SS2520, *spentFuel, *zinc;
+	G4Material *H2O, *air, *Al2O3, *SS2520, *spentFuel, *zinc, *SS316L, *HPGe;
 	
 	void DefineMaterials();
 };
