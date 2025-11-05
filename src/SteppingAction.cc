@@ -99,44 +99,12 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
 	
 	if (ParticleName == "gamma")
 	{
-		//G4float energy = track->GetKineticEnergy()/eV;
-		//G4int energyMod = round(energy/1000);
-		
-		*loc = preStepPoint->GetPosition();
-		G4float xlocg = loc->getX()/mm;
-		G4float ylocg = loc->getY()/mm;
-		G4float zlocg = loc->getZ()/mm;
-		
 		G4LogicalVolume* volume = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
 		G4int copyNumber = touchable->GetCopyNumber();
-			
-		/*
-		if (stepNumber == 1)
-		{
-			fEventAction->(xlocg);
-			fEventAction->AddYlocG(ylocg);
-			fEventAction->AddZlocG(xlocg);
-			fEventAction->AddEdep(energy);
-		}*/
-		
-		if (volume == fScoringVolume)
-		{
-			
-			G4double preStepTE = step->GetPreStepPoint()->GetTotalEnergy()/keV;
-			G4double postStepTE = step->GetPostStepPoint()->GetTotalEnergy()/keV;
-
-			G4double deltaTE = preStepTE - postStepTE;
-			
-			G4double depositedEnergy = step->GetTotalEnergyDeposit()/MeV;
-			
-			//G4cout << "Detector number (angle pos): " << copyNumber << G4endl;
-			//G4cout << "Change in TE: " << deltaTE << G4endl;
-			
-			fEventAction->AddDetector(copyNumber);
-			fEventAction->AddEdep(depositedEnergy);
-			//track->SetTrackStatus(fStopAndKill); 
-		}
-		
+		G4double depositedEnergy = step->GetTotalEnergyDeposit()/MeV;
+		fEventAction->AddDetector(copyNumber);
+		fEventAction->AddEdep(depositedEnergy);	
+	
 	}
 	
 	/*

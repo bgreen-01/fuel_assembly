@@ -34,6 +34,8 @@
 #include "G4Gamma.hh"
 #include "G4Electron.hh"
 #include "G4Alpha.hh"
+#include "G4NeutrinoE.hh"
+#include "G4AntiNeutrinoE.hh"
 
 namespace placeholder
 {
@@ -56,14 +58,14 @@ StackingAction::ClassifyNewTrack(const G4Track* track)
 	if (125000 <= mass <= 130000) return fUrgent; //retain cs-137 atoms
 	*/
 	////save all particles of atomic mass >= 2
-	if (mass >= 1863) return fUrgent;
+	//if (mass >= 1863) return fUrgent;
 	
 	////optional Alpha saving if potential for a,n production 
-	if (track->GetDefinition() == G4Alpha::Alpha()) return fUrgent;
-	if (track->GetDefinition() == G4Electron::Electron()) return fKill;	
+	if (track->GetDefinition() == G4NeutrinoE::NeutrinoE()) return fKill;
+	if (track->GetDefinition() == G4AntiNeutrinoE::AntiNeutrinoE()) return fKill;
 	
 	//kill secondaries 
-    else return fKill;
+    else return fUrgent;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
