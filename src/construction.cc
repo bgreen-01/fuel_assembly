@@ -123,7 +123,7 @@ void MyDetectorConstruction::DefineMaterials()
 	
 	fTargetMaterial = spentFuel;
 	fAnnulusMaterial = H2O;
-	fCladMaterial = H2O;
+	fCladMaterial = air;
 	
 
 }
@@ -176,6 +176,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 		G4double theta = (j*(360/6))*(M_PI/180);
 		G4double x = sin(theta)*r;
 		G4double z = cos(theta)*r;
+		G4int ang = (j*(360/12));
 
 		physFuel = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicFuel, "physFuel", logicWorld, false, 0, true);
 		physClad = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicClad, "physClad", logicWorld, false, 0, true);
@@ -201,8 +202,8 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
 		physTCap = new G4PVPlacement(Rotation, G4ThreeVector(x, 483.8*mm, z), logicCap, "physTCap", logicWorld, false, 0, true);
 		physBCap = new G4PVPlacement(Rotation, G4ThreeVector(x, -483.8*mm, z), logicCap, "physBCap", logicWorld, false, 0, true);
 		
-		/*physWaterA = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterA, "physWaterA", logicWorld, false, 0, true);
-		physWaterC = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterC, "physWaterC", logicWorld, false, 0, true);*/		
+		physWaterA = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterA, "physWaterA", logicWorld, false, 0, true);
+		physWaterC = new G4PVPlacement(Rotation, G4ThreeVector(x, 0., z), logicWaterC, "physWaterC", logicWorld, false, 0, true);		
 	}
 	
 	for(G4int j=0; j<18; j++)

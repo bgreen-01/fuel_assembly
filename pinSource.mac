@@ -6,12 +6,18 @@
 /gps/pos/shape Cylinder
 
 /gps/pos/centre 0 0 0
-/gps/pos/radius 95 mm
+/gps/pos/radius 8 mm
 /gps/pos/halfz 465 mm
 /gps/pos/rot1 1 0 0
 /gps/pos/rot2 0 0 1
 
-/gps/pos/confine physFuel
+#/gps/pos/centre 0 0 0
+#/gps/pos/radius 95 mm
+#/gps/pos/halfz 465 mm
+#/gps/pos/rot1 1 0 0
+#/gps/pos/rot2 0 0 1
+
+#/gps/pos/confine physFuel
 /gps/ang/type iso
 /gps/source/intensity 1
 
