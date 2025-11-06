@@ -51,16 +51,22 @@ class EventAction : public G4UserEventAction
     void EndOfEventAction(const G4Event* event) override;
 
     void AddEdep(G4float edep=0.) { fEdep += edep; }
+    void AddEdep2(G4float edep2=0.) { fEdep2 += edep2; }
+    void AddEdep3(G4float edep3=0.) { fEdep3 += edep3; }
+    void AddEdep4(G4float edep4=0.) { fEdep4 += edep4; }
+    void AddEdep5(G4float edep5=0.) { fEdep5 += edep5; }
+    void AddEdep6(G4float edep6=0.) { fEdep6 += edep6; }
+    void AddEdep7(G4float edep7=0.) { fEdep7 += edep7; }
+    void AddEdep8(G4float edep8=0.) { fEdep8 += edep8; }
+    void AddEdep9(G4float edep9=0.) { fEdep9 += edep9; }
+    void AddEdep10(G4float edep10=0.) { fEdep10 += edep10; }
+    void AddEdep11(G4float edep11=0.) { fEdep11 += edep11; }
+    void AddEdep12(G4float edep12=0.) { fEdep12 += edep12; }
+ 
+    
     void AddNEdep(G4float Nedep=0.) { fNEdep += Nedep; }
     
-    void AddXloc(G4float xloc=0.) { fXloc += xloc; }
-    void AddYloc(G4float yloc=0.) { fYloc += yloc; }
-    void AddZloc(G4float zloc=0.) { fZloc += zloc; }
-    
-    void AddXlocG(G4float xlocG=0.) { fXlocG += xlocG; }
-    void AddYlocG(G4float ylocG=0.) { fYlocG += ylocG; }
-    void AddZlocG(G4float zlocG=0.) { fZlocG += zlocG; }
-    
+   
     void AddXlocN(G4float xlocN=0.) { fXlocN += xlocN; }
     void AddYlocN(G4float ylocN=0.) { fYlocN += ylocN; }
     void AddZlocN(G4float zlocN=0.) { fZlocN += zlocN; }
@@ -90,16 +96,22 @@ class EventAction : public G4UserEventAction
   private:
     RunAction* fRunAction = nullptr;
     G4float fEdep = 0.;
+    G4float fEdep2 = 0.;
+    G4float fEdep3 = 0.;
+    G4float fEdep4 = 0.;
+    G4float fEdep5 = 0.;
+    G4float fEdep6 = 0.;
+    G4float fEdep7 = 0.;
+    G4float fEdep8 = 0.;
+    G4float fEdep9 = 0.;
+    G4float fEdep10 = 0.;
+    G4float fEdep11 = 0.;
+    G4float fEdep12 = 0.;
+    
     G4float fNEdep = 0.;
     G4float fEnergy = 0.;
     
-    G4float fXloc = 0.;
-    G4float fYloc = 0.;
-    G4float fZloc = 0.;
-    
-    G4float fXlocG = 0.;
-    G4float fYlocG = 0.;
-    G4float fZlocG = 0.;
+
     
     G4float fXlocN = 0.;
     G4float fYlocN = 0.;

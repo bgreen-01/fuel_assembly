@@ -75,10 +75,53 @@ RunAction::RunAction()
     analysisManager->CreateNtupleDColumn("fZlocN");
     analysisManager->FinishNtuple(0);
     
-    analysisManager->CreateNtuple("Detector response", "Recorded spectrum and location");
-    analysisManager->CreateNtupleIColumn("detectorNumber");
+    analysisManager->CreateNtuple("Detector 0", "Recorded energy spectrum");
     analysisManager->CreateNtupleDColumn("fEdep");
     analysisManager->FinishNtuple(1);
+    
+    analysisManager->CreateNtuple("Detector 30", "Recorded energy spectrum");
+    analysisManager->CreateNtupleDColumn("fEdep");
+    analysisManager->FinishNtuple(2);
+    
+    analysisManager->CreateNtuple("Detector 60", "Recorded energy spectrum");
+    analysisManager->CreateNtupleDColumn("fEdep");
+    analysisManager->FinishNtuple(3);
+    
+    analysisManager->CreateNtuple("Detector 90", "Recorded energy spectrum");
+    analysisManager->CreateNtupleDColumn("fEdep");
+    analysisManager->FinishNtuple(4);
+    
+    analysisManager->CreateNtuple("Detector 120", "Recorded energy spectrum");
+    analysisManager->CreateNtupleDColumn("fEdep");
+    analysisManager->FinishNtuple(5);
+    
+    analysisManager->CreateNtuple("Detector 150", "Recorded energy spectrum");
+    analysisManager->CreateNtupleDColumn("fEdep");
+    analysisManager->FinishNtuple(6);
+    
+    analysisManager->CreateNtuple("Detector 180", "Recorded energy spectrum");
+    analysisManager->CreateNtupleDColumn("fEdep");
+    analysisManager->FinishNtuple(7);
+    
+    analysisManager->CreateNtuple("Detector 210", "Recorded energy spectrum");
+    analysisManager->CreateNtupleDColumn("fEdep");
+    analysisManager->FinishNtuple(8);
+    
+    analysisManager->CreateNtuple("Detector 240", "Recorded energy spectrum");
+    analysisManager->CreateNtupleDColumn("fEdep");
+    analysisManager->FinishNtuple(9);
+    
+    analysisManager->CreateNtuple("Detector 270", "Recorded energy spectrum");
+    analysisManager->CreateNtupleDColumn("fEdep");
+    analysisManager->FinishNtuple(10);
+    
+    analysisManager->CreateNtuple("Detector 300", "Recorded energy spectrum");
+    analysisManager->CreateNtupleDColumn("fEdep");
+    analysisManager->FinishNtuple(11);
+    
+    analysisManager->CreateNtuple("Detector 330", "Recorded energy spectrum");
+    analysisManager->CreateNtupleDColumn("fEdep");
+    analysisManager->FinishNtuple(12);
     
     /*analysisManager->CreateNtuple("Gammas", "Gamma generation location");
     analysisManager->CreateNtupleDColumn("fXlocG");
@@ -111,10 +154,23 @@ RunAction::RunAction()
  	// reg accumulable to the accumulable manager
 	G4AccumulableManager* accumulableManager = G4AccumulableManager::Instance();
 	accumulableManager->Register(fEdep);
+	accumulableManager->Register(fEdep2);
+	accumulableManager->Register(fEdep3);
+	accumulableManager->Register(fEdep4);
+	accumulableManager->Register(fEdep5);
+	accumulableManager->Register(fEdep6);
+	accumulableManager->Register(fEdep7);
+	accumulableManager->Register(fEdep8);
+	accumulableManager->Register(fEdep9);
+	accumulableManager->Register(fEdep10);
+	accumulableManager->Register(fEdep11);
+	accumulableManager->Register(fEdep12);
+	
+	accumulableManager->Register(fDetectorNumber);
 	//accumulableManager->RegisterAccumulable(fNEdep);
-	accumulableManager->RegisterAccumulable(fXlocN);
-	accumulableManager->RegisterAccumulable(fYlocN);
-	accumulableManager->RegisterAccumulable(fZlocN);
+	accumulableManager->Register(fXlocN);
+	accumulableManager->Register(fYlocN);
+	accumulableManager->Register(fZlocN);
 	/*accumulableManager->Register(fXlocG);
 	accumulableManager->Register(fYlocG);
 	accumulableManager->Register(fXloc);

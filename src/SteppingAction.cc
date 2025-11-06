@@ -82,6 +82,7 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
 	G4StepPoint* preStepPoint = step->GetPreStepPoint();
 	
 	//G4float energy = track->GetKineticEnergy()/eV;
+	G4LogicalVolume* volume = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
 	
 	if (ParticleName == "neutron" && stepNumber == 1)
 	{
@@ -97,13 +98,72 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
 		
 	}
 	
-	if (ParticleName == "gamma")
+	if ((volume == fScoringVolume) && (ParticleName != "neutron"))
 	{
-		G4LogicalVolume* volume = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
+		
 		G4int copyNumber = touchable->GetCopyNumber();
-		G4double depositedEnergy = step->GetTotalEnergyDeposit()/MeV;
-		fEventAction->AddDetector(copyNumber);
-		fEventAction->AddEdep(depositedEnergy);	
+		G4double depositedEnergy = step->GetTotalEnergyDeposit()/keV;
+		//G4cout << "Detector number: " << copyNumber << G4endl;
+		
+		if (copyNumber == 0)
+		{
+			fEventAction->AddEdep(depositedEnergy);	
+		}
+		
+		if (copyNumber == 30)
+		{
+			fEventAction->AddEdep2(depositedEnergy);	
+		}
+		
+		if (copyNumber == 60)
+		{
+			fEventAction->AddEdep3(depositedEnergy);	
+		}
+		
+		if (copyNumber == 90)
+		{
+			fEventAction->AddEdep4(depositedEnergy);	
+		}
+		
+		if (copyNumber == 120)
+		{
+			fEventAction->AddEdep5(depositedEnergy);	
+		}
+		
+		if (copyNumber == 150)
+		{
+			fEventAction->AddEdep6(depositedEnergy);	
+		}
+		
+		if (copyNumber == 180)
+		{
+			fEventAction->AddEdep7(depositedEnergy);	
+		}
+		
+		if (copyNumber == 210)
+		{
+			fEventAction->AddEdep8(depositedEnergy);	
+		}
+		
+		if (copyNumber == 240)
+		{
+			fEventAction->AddEdep9(depositedEnergy);	
+		}
+		
+		if (copyNumber == 270)
+		{
+			fEventAction->AddEdep10(depositedEnergy);	
+		}
+		
+		if (copyNumber == 300)
+		{
+			fEventAction->AddEdep11(depositedEnergy);	
+		}
+		
+		if (copyNumber == 330)
+		{
+			fEventAction->AddEdep12(depositedEnergy);	
+		}
 	
 	}
 	

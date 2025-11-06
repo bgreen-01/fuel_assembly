@@ -78,27 +78,95 @@ void EventAction::EndOfEventAction(const G4Event* anEvent)
   		analysisManager->AddNtupleRow(0);	
 	}
 	
+	//G4cout << "Detector number: " << fDetectorNumber << G4endl;
+	
 	//gamma detection location 
 	if (fEdep > 0)
 	{
 		//G4cout << "Event number: " << anEvent->GetEventID() << G4endl;
-		analysisManager->FillNtupleIColumn(1, 0, fDetectorNumber);
-  		analysisManager->FillNtupleDColumn(1, 1, fEdep);
+  		analysisManager->FillNtupleDColumn(1, 0, fEdep);
   		analysisManager->AddNtupleRow(1);
-  		
-  		if (fEdep > 2220 && fEdep < 2225)
-  		{
-  			G4cout << "Gamma energy: " << fEdep << G4endl;
-  		}
 	}
+	
+	if (fEdep2 > 0)
+	{
+		//G4cout << "Event number: " << anEvent->GetEventID() << G4endl;
+  		analysisManager->FillNtupleDColumn(2, 0, fEdep2);
+  		analysisManager->AddNtupleRow(2);
+	}
+	
+	if (fEdep3 > 0)
+	{
+		//G4cout << "Event number: " << anEvent->GetEventID() << G4endl;
+  		analysisManager->FillNtupleDColumn(3, 0, fEdep3);
+  		analysisManager->AddNtupleRow(3);
+	}
+	
+	if (fEdep4 > 0)
+	{
+		//G4cout << "Event number: " << anEvent->GetEventID() << G4endl;
+  		analysisManager->FillNtupleDColumn(4, 0, fEdep4);
+  		analysisManager->AddNtupleRow(4);
+	}
+	
+	if (fEdep5 > 0)
+	{
+		//G4cout << "Event number: " << anEvent->GetEventID() << G4endl;
+  		analysisManager->FillNtupleDColumn(5, 0, fEdep5);
+  		analysisManager->AddNtupleRow(5);
+	}
+	
+	if (fEdep6 > 0)
+	{
+		//G4cout << "Event number: " << anEvent->GetEventID() << G4endl;
+  		analysisManager->FillNtupleDColumn(6, 0, fEdep6);
+  		analysisManager->AddNtupleRow(6);
+	}
+	
+	if (fEdep7 > 0)
+	{
+		//G4cout << "Event number: " << anEvent->GetEventID() << G4endl;
+  		analysisManager->FillNtupleDColumn(7, 0, fEdep7);
+  		analysisManager->AddNtupleRow(7);
+	}
+	
+	if (fEdep8 > 0)
+	{
+		//G4cout << "Event number: " << anEvent->GetEventID() << G4endl;
+  		analysisManager->FillNtupleDColumn(8, 0, fEdep8);
+  		analysisManager->AddNtupleRow(8);
+	}
+	
+	if (fEdep9 > 0)
+	{
+		//G4cout << "Event number: " << anEvent->GetEventID() << G4endl;
+  		analysisManager->FillNtupleDColumn(9, 0, fEdep9);
+  		analysisManager->AddNtupleRow(9);
+	}
+	
+	if (fEdep10 > 0)
+	{
+		//G4cout << "Event number: " << anEvent->GetEventID() << G4endl;
+  		analysisManager->FillNtupleDColumn(10, 0, fEdep10);
+  		analysisManager->AddNtupleRow(10);
+	}
+	
+	if (fEdep11 > 0)
+	{
+		//G4cout << "Event number: " << anEvent->GetEventID() << G4endl;
+  		analysisManager->FillNtupleDColumn(11, 0, fEdep11);
+  		analysisManager->AddNtupleRow(11);
+	}
+	
+	if (fEdep12 > 0)
+	{
+		//G4cout << "Event number: " << anEvent->GetEventID() << G4endl;
+  		analysisManager->FillNtupleDColumn(12, 0, fEdep12);
+  		analysisManager->AddNtupleRow(12);
+	}
+	
 	/*
-	if ((fEdep = 2223) && (fXlocG != 0 || fYlocG != 0))
-   	{
-		analysisManager->FillNtupleDColumn(1, 0, fXlocG);
-		analysisManager->FillNtupleDColumn(1, 1, fYlocG);
-  		analysisManager->FillNtupleDColumn(1, 2, fZlocG);
-  		analysisManager->AddNtupleRow(1);
-	}
+	
 	
 }	
 	if (fCheck == true)

@@ -59,20 +59,26 @@ class RunAction : public G4UserRunAction
     void   EndOfRunAction(const G4Run*) override;
 
     void AddEdep (G4float edep=0.);
+    void AddEdep2(G4float edep2=0.);
+    void AddEdep3(G4float edep3=0.);
+    void AddEdep4(G4float edep4=0.);
+    void AddEdep5(G4float edep5=0.);
+    void AddEdep6(G4float edep6=0.);
+    void AddEdep7(G4float edep7=0.);
+    void AddEdep8(G4float edep8=0.);
+    void AddEdep9(G4float edep9=0.);
+    void AddEdep10(G4float edep10=0.);
+    void AddEdep11(G4float edep11=0.);
+    void AddEdep12(G4float edep12=0.);
+    
+    
     void AddNEdep (G4float Nedep=0.);
     
     void AddXlocN (G4float xlocN=0.);
     void AddYlocN (G4float ylocN=0.);
     void AddZlocN (G4float zlocN=0.);
     
-    void AddXlocG (G4float xlocG=0.);
-    void AddYlocG (G4float ylocG=0.);
-    void AddZlocG (G4float zlocG=0.);
-    
-    void AddXloc (G4float xloc=0.);
-    void AddYloc (G4float yloc=0.);
-    void AddZloc (G4float zloc=0.);
-    
+       
     void detectorNumber (G4int detectorNumber=0);
     
     void StepNumber (G4int stepNumber=0);
@@ -88,19 +94,26 @@ class RunAction : public G4UserRunAction
   	//std::vector<std::string> fProcVec{};
   	
     G4Accumulable<G4float> fEdep = 0.;
+    G4Accumulable<G4float> fEdep2 = 0.;
+    G4Accumulable<G4float> fEdep3 = 0.;
+    G4Accumulable<G4float> fEdep4 = 0.;
+    G4Accumulable<G4float> fEdep5 = 0.;
+    G4Accumulable<G4float> fEdep6 = 0.;
+    G4Accumulable<G4float> fEdep7 = 0.;
+    G4Accumulable<G4float> fEdep8 = 0.;
+    G4Accumulable<G4float> fEdep9 = 0.;
+    G4Accumulable<G4float> fEdep10 = 0.;
+    G4Accumulable<G4float> fEdep11 = 0.;
+    G4Accumulable<G4float> fEdep12 = 0.;
+    
+    G4Accumulable<G4int> fDetectorNumber = 0;
     //G4Accumulable<G4float> fNEdep = 0.;
     
     G4Accumulable<G4float> fXlocN = 0.;
     G4Accumulable<G4float> fYlocN = 0.;
     G4Accumulable<G4float> fZlocN = 0.;
     
-    G4Accumulable<G4float> fXlocG = 0.;
-    G4Accumulable<G4float> fYlocG = 0.;
-    G4Accumulable<G4float> fZlocG = 0.;
-    
-    G4Accumulable<G4float> fXloc = 0.;
-    G4Accumulable<G4float> fYloc = 0.;
-    G4Accumulable<G4float> fZloc = 0.;
+  
     
     //G4Accumulable<G4int> fStep = 0.;
     //G4Accumulable<std::string> fParticle;

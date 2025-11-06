@@ -33,8 +33,8 @@
 #to name files with .csv but not sure if this will cause errors due to 
 #Ntuple data structure.
 
-/analysis/setFileName 1MDetectorTest
-/run/beamOn 1000000
+/analysis/setFileName V2SepDetTest
+/run/beamOn 100000
 
 #/analysis/setFileName SNF_dry
 #/targetMat/material spentFuel
