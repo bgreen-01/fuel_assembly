@@ -30,12 +30,11 @@
 
 #use line below to set file name
 #allows change between runs via macro alleviating need to rename later
-#NOTE: no need to add ".root" as default file type is root. You may be able 
-#to name files with .csv but not sure if this will cause errors due to 
-#Ntuple data structure.
+#for pin waterlog runs, name file in format: Inner/Mid/Outer:Angle from x axis:number of events
+#e.g. Mid9010M
 
-/analysis/setFileName FloodedTest
-/run/beamOn 100000
+/analysis/setFileName Dry10M
+/run/beamOn 10000000
 
 #/analysis/setFileName SNF_dry
 #/targetMat/material spentFuel
