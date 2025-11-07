@@ -83,84 +83,84 @@ void EventAction::EndOfEventAction(const G4Event* anEvent)
 	//gamma detection location 
 	if (fEdep > 0)
 	{
-		G4cout << "Hit in detector 0" << G4endl;
+		//G4cout << "Hit in detector 0" << G4endl;
   		analysisManager->FillNtupleDColumn(1, 0, fEdep);
   		analysisManager->AddNtupleRow(1);
 	}
 	
 	if (fEdep2 > 0)
 	{
-		G4cout << "Hit in detector 30" << G4endl;
+		//G4cout << "Hit in detector 30" << G4endl;
   		analysisManager->FillNtupleDColumn(2, 0, fEdep2);
   		analysisManager->AddNtupleRow(2);
 	}
 	
 	if (fEdep3 > 0)
 	{
-		G4cout << "Hit in detector 60" << G4endl;
+		//G4cout << "Hit in detector 60" << G4endl;
   		analysisManager->FillNtupleDColumn(3, 0, fEdep3);
   		analysisManager->AddNtupleRow(3);
 	}
 	
 	if (fEdep4 > 0)
 	{
-		G4cout << "Hit in detector 90" << G4endl;
+		//G4cout << "Hit in detector 90" << G4endl;
   		analysisManager->FillNtupleDColumn(4, 0, fEdep4);
   		analysisManager->AddNtupleRow(4);
 	}
 	
 	if (fEdep5 > 0)
 	{
-		G4cout << "Hit in detector 120" << G4endl;
+		//G4cout << "Hit in detector 120" << G4endl;
   		analysisManager->FillNtupleDColumn(5, 0, fEdep5);
   		analysisManager->AddNtupleRow(5);
 	}
 	
 	if (fEdep6 > 0)
 	{
-		G4cout << "Hit in detector 150" << G4endl;
+		//G4cout << "Hit in detector 150" << G4endl;
   		analysisManager->FillNtupleDColumn(6, 0, fEdep6);
   		analysisManager->AddNtupleRow(6);
 	}
 	
 	if (fEdep7 > 0)
 	{
-		G4cout << "Hit in detector 180" << G4endl;
+		//G4cout << "Hit in detector 180" << G4endl;
   		analysisManager->FillNtupleDColumn(7, 0, fEdep7);
   		analysisManager->AddNtupleRow(7);
 	}
 	
 	if (fEdep8 > 0)
 	{
-		G4cout << "Hit in detector 210" << G4endl;
+		//G4cout << "Hit in detector 210" << G4endl;
   		analysisManager->FillNtupleDColumn(8, 0, fEdep8);
   		analysisManager->AddNtupleRow(8);
 	}
 	
 	if (fEdep9 > 0)
 	{
-		G4cout << "Hit in detector 240" << G4endl;
+		//G4cout << "Hit in detector 240" << G4endl;
   		analysisManager->FillNtupleDColumn(9, 0, fEdep9);
   		analysisManager->AddNtupleRow(9);
 	}
 	
 	if (fEdep10 > 0)
 	{
-		G4cout << "Hit in detector 270" << G4endl;
+		//G4cout << "Hit in detector 270" << G4endl;
   		analysisManager->FillNtupleDColumn(10, 0, fEdep10);
   		analysisManager->AddNtupleRow(10);
 	}
 	
 	if (fEdep11 > 0)
 	{
-		G4cout << "Hit in detector 300" << G4endl;
+		//G4cout << "Hit in detector 300" << G4endl;
   		analysisManager->FillNtupleDColumn(11, 0, fEdep11);
   		analysisManager->AddNtupleRow(11);
 	}
 	
 	if (fEdep12 > 0)
 	{
-		G4cout << "Hit in detector 330" << G4endl;
+		//G4cout << "Hit in detector 330" << G4endl;
   		analysisManager->FillNtupleDColumn(12, 0, fEdep12);
   		analysisManager->AddNtupleRow(12);
 	}
