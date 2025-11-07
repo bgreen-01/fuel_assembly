@@ -102,66 +102,78 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
 	{
 		
 		G4int copyNumber = touchable->GetCopyNumber();
-		G4double depositedEnergy = step->GetTotalEnergyDeposit()/keV;
+		//G4double depositedEnergy = step->GetTotalEnergyDeposit()/keV;
 		//G4cout << "Detector number: " << copyNumber << G4endl;
 		
 		if (copyNumber == 0)
 		{
+			G4double depositedEnergy = step->GetTotalEnergyDeposit()/keV;
 			fEventAction->AddEdep(depositedEnergy);	
 		}
 		
 		if (copyNumber == 30)
 		{
+			G4double depositedEnergy = step->GetTotalEnergyDeposit()/keV;
 			fEventAction->AddEdep2(depositedEnergy);	
 		}
 		
 		if (copyNumber == 60)
 		{
+			G4double depositedEnergy = step->GetTotalEnergyDeposit()/keV;
 			fEventAction->AddEdep3(depositedEnergy);	
 		}
 		
 		if (copyNumber == 90)
 		{
+			G4double depositedEnergy = step->GetTotalEnergyDeposit()/keV;
 			fEventAction->AddEdep4(depositedEnergy);	
 		}
 		
 		if (copyNumber == 120)
 		{
+			G4double depositedEnergy = step->GetTotalEnergyDeposit()/keV;
 			fEventAction->AddEdep5(depositedEnergy);	
 		}
 		
 		if (copyNumber == 150)
 		{
+			G4double depositedEnergy = step->GetTotalEnergyDeposit()/keV;
 			fEventAction->AddEdep6(depositedEnergy);	
 		}
 		
 		if (copyNumber == 180)
 		{
+			G4double depositedEnergy = step->GetTotalEnergyDeposit()/keV;
 			fEventAction->AddEdep7(depositedEnergy);	
 		}
 		
 		if (copyNumber == 210)
 		{
+			G4double depositedEnergy = step->GetTotalEnergyDeposit()/keV;
 			fEventAction->AddEdep8(depositedEnergy);	
 		}
 		
 		if (copyNumber == 240)
 		{
+			G4double depositedEnergy = step->GetTotalEnergyDeposit()/keV;
 			fEventAction->AddEdep9(depositedEnergy);	
 		}
 		
 		if (copyNumber == 270)
 		{
+			G4double depositedEnergy = step->GetTotalEnergyDeposit()/keV;
 			fEventAction->AddEdep10(depositedEnergy);	
 		}
 		
 		if (copyNumber == 300)
 		{
+			G4double depositedEnergy = step->GetTotalEnergyDeposit()/keV;
 			fEventAction->AddEdep11(depositedEnergy);	
 		}
 		
 		if (copyNumber == 330)
 		{
+			G4double depositedEnergy = step->GetTotalEnergyDeposit()/keV;
 			fEventAction->AddEdep12(depositedEnergy);	
 		}
 	

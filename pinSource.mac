@@ -23,6 +23,7 @@
 
 /gps/particle ion
 /gps/ion 98 252 0 0
+#/gps/ion 55 137 0 0
 /gps/ene/mono 0 keV
 
 /process/had/rdm/thresholdForVeryLongDecayTime 1.0e+10 year
@@ -33,7 +34,7 @@
 #to name files with .csv but not sure if this will cause errors due to 
 #Ntuple data structure.
 
-/analysis/setFileName V2SepDetTest
+/analysis/setFileName FloodedTest
 /run/beamOn 100000
 
 #/analysis/setFileName SNF_dry
